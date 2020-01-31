@@ -8,6 +8,9 @@ const { version } = require('./package.json');
 
 const config = {
   mode: process.env.NODE_ENV,
+  devServer: {
+    sockPort: 8080,
+  },
   context: __dirname + '/src',
   entry: {
     'highlight': './highlight.js',

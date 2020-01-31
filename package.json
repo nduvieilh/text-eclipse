@@ -7,7 +7,7 @@
     "type": "git",
     "url": "https://github.com/nduvieilh/word-eclipse.git"
   },
-  "author": "Dmitriy Yudin, Subin Siwal, Nicky Duvieilh",
+  "author": "Nicky Duvieilh, Subin Siwal, Dmitriy Yudin",
   "license": "ISC",
   "scripts": {
     "lint": "eslint --ext .js,.vue src",
