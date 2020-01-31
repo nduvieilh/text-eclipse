@@ -21,18 +21,15 @@ On page load the extension will check the chrome `tabs` API for permission to ac
 - Parse DOM nodes
 - Wrap search terms in `<span>`
 
-## What did we complete ##
-- Creating an extension
-- Dynamic access to active page DOM tree
-- Efficiently searching for matches (`Document.createTreeWalker()`)
-- `chrome.storage.sync` API to keep your search terms
-- Basic options page to add/remove styles and matches
-
-## What is left to do ##
-- Extracting search terms from previous google search
-- Expand settings page to allow modification
-- RegEx search support
-- Multiple terms in one `TextNode`
-- `<span>` clean up
-- Unit testing
-- Publish on Chrome Web Store
+## Features ##
+- [x] Dynamic access to active page DOM tree
+- [x] Efficiently searching for matches (`Document.createTreeWalker()`)
+- [x] `chrome.storage.sync` API to keep your search terms
+- [ ] Basic options page to add/remove styles and matches
+- [ ] Extracting search terms from previous google search
+- [ ] Expand settings page to allow modification
+- [ ] RegEx search support
+- [ ] Multiple terms in one `TextNode`
+- [ ] `<span>` clean up
+- [ ] Unit testing
+- [ ] Chrome Web Store
