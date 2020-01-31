@@ -1,0 +1,13 @@
+{
+  "blacklist": {
+    "nodeNames": [
+      "SCRIPT",
+      "HEAD",
+      "TITLE",
+      "STYLE",
+      "BODY",
+      "NOSCRIPT",
+      "HTML"
+    ]
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "styles": [
+    {
+      "name": "subin",
+      "css": "color: green; background: darkgreen;"
+    },
+    {
+      "name": "nicky",
+      "css": "color: red; background: darkred;"
+    },
+    {
+      "name": "dima",
+      "css": "color: blue; background: darkblue;"
+    }
+  ],
+  "matches": [
+    {
+      "style": "subin",
+      "active": true,
+      "strings": [
+        "beef",
+        "pork",
+        "steak"
+      ],
+      "regex": true,
+      "case_insensitive": true
+    },
+    {
+      "style": "dima",
+      "active": true,
+      "strings": [
+        "sandwich",
+        "pizza",
+        "blood"
+      ],
+      "regex": false,
+      "case_insensitive": true
+    },
+    {
+      "style": "nicky",
+      "active": true,
+      "strings": [
+        "pasta",
+        "bread",
+        "caramel",
+        "cookie",
+        "sweet",
+        "chocolate",
+        "onion",
+        "macaroni",
+        "coconut",
+        "beer",
+        "fried",
+        "potato",
+        "fries",
+        "tortilla"
+      ],
+      "regex": false,
+      "case_insensitive": true
+    }
+  ]
+}
