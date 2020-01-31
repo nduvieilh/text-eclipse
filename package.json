@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://bitbucket.internal.abrigo.com:8443/scm/play/word-eclipse.git"
+    "url": "https://github.com/nduvieilh/word-eclipse.git"
   },
   "author": "Dmitriy Yudin, Subin Siwal, Nicky Duvieilh",
   "license": "ISC",
