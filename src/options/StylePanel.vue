@@ -4,7 +4,7 @@
     VTextField,
   } from 'vuetify/lib';
   export default {
-    name: 'StyleCard',
+    name: 'StylePanel',
     components: {
       VTextarea,
       VTextField,
@@ -15,6 +15,11 @@
         required: true,
         default: () => {}
       },
+    },
+    methods: {
+      update() {
+        this.$emit('setStyle', this.styleDefinition);
+      }
     }
   };
 </script>
@@ -23,23 +28,19 @@
   <div>
     <v-text-field
       v-model="styleDefinition.name"
+      @blur="update()"
       label="Name"
-      :full-width="true"
-      outlined
       filled
+      color="accent"
     >
-      <template slot="append-outer">
-        <span :style="styleDefinition.css">
-          {{styleDefinition.name}}
-        </span>
-      </template>
     </v-text-field>
     <v-textarea
       v-model="styleDefinition.css"
-      :auto-grow="true"
-      :full-width="true"
-      outlined
+      @blur="update()"
+      label="CSS Class"
+      auto-grow
       filled
+      color="accent"
       >
     </v-textarea>
   </div>

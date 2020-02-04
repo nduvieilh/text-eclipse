@@ -1,47 +1,79 @@
 <script>
   import StorageService from "../StorageService";
-  import StyleCard from './StyleCard';
+  import StylePanel from './StylePanel';
+  import MatchPanel from './MatchPanel';
   import { 
     VRow,
     VCol,
-    VDivider,
-    VCard,
-    VCardTitle,
-    VCardText,
-    VSheet,
     VIcon,
+    VExpansionPanels,
+    VExpansionPanel,
+    VExpansionPanelHeader,
+    VExpansionPanelContent,
+    VInput,
   } from 'vuetify/lib';
+  const storageService = new StorageService();
+
   export default {
     name: 'SettingsList',
     components: {
       VRow,
       VCol,
-      VDivider,
-      VCard,
-      VCardTitle,
-      VCardText,
-      VSheet,
       VIcon,
-      StyleCard,
+      VExpansionPanels,
+      VExpansionPanel,
+      VExpansionPanelHeader,
+      VExpansionPanelContent,
+      VInput,
+      StylePanel,
+      MatchPanel,
     },
     mounted() {
-      let storageService = new StorageService();
-      storageService.getStyles().then(styles => {
-        this.styles = styles;
-      });
+      this.getStyles();
+      this.getMatches();
       
-      document.addEventListener('storage-changed', function (e) {
-        let storageService = new StorageService();
+      // Register event listeners
+      document.addEventListener('styles-changed', this.getStyles);
+      document.addEventListener('matches-changed', this.getMatches);
+    },
+    destroyed() {
+      // Deregister event listeners
+      document.removeEventListener('styles-changed', this.getStyles);
+      document.removeEventListener('matches-changed', this.getMatches);
+    },
+    methods: {
+      matchDescription(match) {
+        const style = this.styles.find(style => style.id === match.style) || {};
+        return [
+          match.active ? "Active" : "Inactive",
+          `Style: ${ style.name }`
+        ].join(', ');
+      },
+      getStyles() {
         storageService.getStyles().then(styles => {
-          console.log(this.styles);
           this.styles = styles;
         });
-      });
+      },
+      getMatches() {
+        storageService.getMatches().then(matches => {
+          this.matches = matches;
+        });
+      },
+      setStyles() {
+        storageService.setStyles(this.styles);
+      },
+      setMatches() {
+        storage.StorageService.setMatches(this.matches);
+      }
     },
     data: () => ({
       fab: false,
       styles: [],
-    })
+      matches: [],
+    }),
+    filters: {
+      join: (strings) => strings.join(', '),
+    }
   };
 </script>
 
@@ -49,34 +81,62 @@
   <div>
     <v-row>
       <v-col cols="12">
-        <v-card>
-          <v-card-title>Styles</v-card-title>
-          <div v-for="(style, index) in styles"
-          :key="index">
-            <style-card
-              class="pa-4" 
-              :style-definition="style"></style-card>
-          </div>
-        </v-card>
+        <v-expansion-panels
+          :hover="true"
+        >
+          <h1>Styles</h1>
+          <v-expansion-panel 
+            v-for="(style, index) in styles"
+            :key="index"
+            >
+            <v-expansion-panel-header>
+              <div>
+                <span :style="style.css">
+                  {{style.name}}
+                </span>
+              </div>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <style-panel 
+                :style-definition="style"
+                @set-style="setStyles()" 
+                class="pt-4"></style-panel>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
       </v-col>
     </v-row>
     <v-row>
       <v-col cols="12">
-        <v-card
+        <v-expansion-panels
+          :hover="true"
         >
-          <v-card-title> Matches</v-card-title>
-          <!-- <div v-for="match in matches">
-            <v-card-text>{{match.name}}</v-card-text>
-            <v-divider class="mx-4"></v-divider>
-          </div> -->
-        </v-card>
+          <h1>Matches</h1>
+          <v-expansion-panel 
+            v-for="(match, index) in matches"
+            :key="index"
+            >
+            <v-expansion-panel-header>
+              <v-input
+                :messages="matchDescription(match)"
+              >
+                <div class="text-truncate mr-5">{{match.strings | join}}</div>
+              </v-input>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <match-panel 
+                :styles="styles"
+                :match-definition="match" 
+                @set-match="setMatches()"
+                class="pt-4"
+              ></match-panel>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
       </v-col>
     </v-row>
   </div>
 </template>
 
-<style lang="scss" scoped>
-.v-speed-dial {
-  position: absolute;
-}
+<style lang="scss">
 </style>

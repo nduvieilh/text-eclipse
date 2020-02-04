@@ -10,87 +10,103 @@ class StorageService {
     if (!instance) {
       instance = this;
 
-      this._styles = [];
-      this._matches = [];
+      this.styles = [];
+      this.matches = [];
 
-      //this.getSavedData();
-      //this.overrideFoodData();
-      this.overrideGoogleData();
-
-       this.getStorage('styles').then(styles => {
-        this._styles = styles;
-        return this.getStorage('matches').then(matches => {
-          requiresSync = false;
-          this._matches = matches;
-          return instance;
-        });
-      }).then(() => {
-        document.dispatchEvent(
-          new CustomEvent('storage-initialized', {
-            detail: {
-              styles: this._styles,
-              matches: this._matches
-            },
-          })
-        );
-      });
+      this.getData();
     }
+
+    return instance;
   }
 
-  getSavedData() {
-    this._styles = BaseData.styles;
-    this._matches = BaseData.matches;
-  }
-
-  overrideFoodData() {
-    this.styles = FoodData.styles;
-    this.matches = FoodData.matches;
-  }
-
-  overrideGoogleData() {
-    this.styles = GoogleData.styles;
-    this.matches = GoogleData.matches;
-  }
-
-  syncData() {
-    console.log('sync data with chrome');
-  }
-
-  get styles() {
-    return this._styles;
-  }
-
-  set styles(data) {
-    requiresSync = true;
-    this.setStorage({ styles: data }).then(() => {
+  getData() {
+    let promise = Promise.all([
+      this.getStorage('styles'),
+      this.getStorage('matches')
+    ]).then((results) => {
       requiresSync = false;
-      console.log('styles updated');
-      this._styles = data;
+
+      this.styles = results[0];
+      this.matches = results[1];
+      
+      document.dispatchEvent(
+        new CustomEvent('storage-initialized', {
+          detail: {
+            styles: this.styles,
+            matches: this.matches
+          },
+        })
+      );
+    });
+
+    return promise;
+  }
+
+  // get styles() {
+  //   return this.styles;
+  // }
+
+  // set styles(data) {
+  //   requiresSync = true;
+  //   this.setStorage({ styles: data }).then(() => {
+  //     requiresSync = false;
+  //     console.log('styles updated');
+  //     this.styles = data;
+  //   });
+  // }
+
+  // get matches() {
+  //   return this.matches;
+  // }
+
+  // set matches(data) {
+  //   requiresSync = true;
+  //   this.setStorage({ matches: data }).then(() => {
+  //     requiresSync = false;
+  //     console.log('matches updated');
+  //     this.matches = data;
+  //   });
+  // }
+  setStyles(styles) {
+    requiresSync = true;
+    this.setStorage({ styles: styles }).then(() => {
+      requiresSync = false;
+      this.styles = styles;
     });
   }
 
-  get matches() {
-    return this._matches;
-  }
-
-  set matches(data) {
+  setMatches(matches) {
     requiresSync = true;
-    this.setStorage({ matches: data }).then(() => {
+    this.setStorage({ matches: matches }).then(() => {
       requiresSync = false;
-      console.log('matches updated');
-      this._matches = data;
+      this.matches = matches;
     });
   }
 
   getStyles() {
     return new Promise((resolve) => {
       if (requiresSync) {
-        chrome.storage.sync.get(['styles'], function(result) {
-          resolve(result['styles']);
+        chrome.storage.sync.get(['styles'], (result) => {
+          this.styles = result['styles'];
+          resolve(this.styles);
         });
       }
       else {
-        resolve(this._styles);
+        resolve(this.styles);
+      }
+    });
+  }
+
+  getMatches() {
+    return new Promise((resolve) => {
+      if (requiresSync) {
+        chrome.storage.sync.get(['matches'], (result) => {
+          this.matches = result['matches'];
+          resolve(this.matches);
+        });
+      }
+      else {
+        resolve(this.matches);
       }
     });
   }
@@ -103,7 +119,7 @@ class StorageService {
         });
       }
       else {
-        resolve(this._matches.filter(match => match.active));
+        resolve(this.matches.filter(match => match.active));
       }
     });
   }
@@ -116,7 +132,7 @@ class StorageService {
         });
       }
       else {
-        resolve(this._styles.find(style => style.name === name));
+        resolve(this.styles.find(style => style.name === name));
       }
     });
   }
@@ -142,12 +158,7 @@ chrome.storage.onChanged.addListener(function(changes) {
   for (var key in changes) {
     var storageChange = changes[key];
     document.dispatchEvent(
-      new CustomEvent('storage-changed', {
-        detail: {
-          key,
-          value: storageChange.newValue,
-        },
-      })
+      new CustomEvent(key+'-changed', storageChange)
     );
   }
 });

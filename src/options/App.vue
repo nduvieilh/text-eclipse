@@ -12,6 +12,7 @@ import {
   VContainer,
   VContent,
 } from 'vuetify/lib';
+
 export default {
   name: 'App',
   components: {
@@ -24,21 +25,17 @@ export default {
     VContent,
     AddFab,
     SettingsList,
-  }
+  },
 };
-let storageService = new StorageService();
-storageService.getStorage('matches').then(matches => {
-  console.log(matches);
-});
-storageService.getStorage('styles').then(styles => {
-  console.log(styles);
-});
 </script>
 
 <template>
   <v-app>
     <v-app-bar
       app
+      color="primary"
+      elevate-on-scroll
+      scroll-target="#page"
     >
       <v-toolbar-title>Word Eclipse</v-toolbar-title>
       <v-spacer></v-spacer>
@@ -47,18 +44,11 @@ storageService.getStorage('styles').then(styles => {
       class="fill-height"
       fluid
     >
-    <!-- <v-sheet
-      id="scrolling-techniques"
-      class="overflow-y-auto"
-      max-height="600"
-    > -->
-      <v-container style="height: 1000px;">
+      <v-container id="page">
         <settings-list></settings-list>
         <add-fab></add-fab>
       </v-container>
     </v-content>
-    <!-- </v-sheet> -->
-
   </v-app>
 </template>
 

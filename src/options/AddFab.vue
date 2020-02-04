@@ -1,22 +1,50 @@
 <script>
+  import StorageService from '../StorageService';
+  import uuidv4 from 'uuid/v4';
   import { 
     VBtn,
     VSpeedDial,
     VIcon,
   } from 'vuetify/lib';
-  import AddStyle from "./AddStyle.vue";
 
   export default {
     name: 'AddFab',
     components: {
-      AddStyle,
       VBtn,
       VSpeedDial,
       VIcon,
     },
     data: () => ({
-      fab: false
-    })
+      storageService: new StorageService(),
+      fab: false,
+    }),
+    methods: {
+      addStyle: async function() {
+        let results = await this.storageService.getStyles();
+        results.push({
+          id: uuidv4(),
+          name: '',
+          css: '',
+        });
+        this.storageService.setStyles(results);
+        
+        this.fab = false;
+      },
+      addMatch: async function() {
+        let results = await this.storageService.getMatches();
+        results.push({
+          id: uuidv4(),
+          active: true,
+          style: "",
+          strings: [],
+          regex: false,
+          case_insensitive: false
+        });
+        this.storageService.setMatches(results);
+        
+        this.fab = false;
+      }
+    },
   };
 </script>
 
@@ -28,29 +56,32 @@
     :bottom="true"
     :right="true"
     direction="top"
+    fixed
   >
     <template v-slot:activator>
       <v-btn
         v-model="fab"
-        color="blue darken-2"
+        color="accent"
         fab
       >
         Options
       </v-btn>
     </template>
-    <add-style/>
     <v-btn
       fab
       small
       color="green"
+      @click="addStyle()"
+    >
+      Add Style
+    </v-btn>
+    <v-btn
+      fab
+      small
+      color="green"
+      @click="addMatch()"
     >
       Add Matches
     </v-btn>
   </v-speed-dial>
 </template>
-
-<style lang="scss" scoped>
-.v-speed-dial {
-  position: absolute;
-}
-</style>

@@ -16,13 +16,10 @@ const opts = {
   theme: {
     themes: {
       light: {
-        primary: colors.blueGrey.darken1,
-        secondary: colors.amber.base
+        primary: colors.lightBlue.darken2,
+        secondary: colors.blueGrey.darken4,
+        accent: colors.amber.base,
       },
-      dark: {
-        primary: colors.blueGrey.darken1,
-        secondary: colors.amber.base
-      }
     }
   },
   icons: {
