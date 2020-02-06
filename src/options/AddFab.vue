@@ -7,6 +7,8 @@
     VIcon,
   } from 'vuetify/lib';
 
+  const storageService = new StorageService();
+
   export default {
     name: 'AddFab',
     components: {
@@ -15,23 +17,22 @@
       VIcon,
     },
     data: () => ({
-      storageService: new StorageService(),
       fab: false,
     }),
     methods: {
       addStyle: async function() {
-        let results = await this.storageService.getStyles();
+        let results = await storageService.getStyles();
         results.push({
           id: uuidv4(),
           name: '',
           css: '',
         });
-        this.storageService.setStyles(results);
+        await storageService.setStyles(results);
         
         this.fab = false;
       },
       addMatch: async function() {
-        let results = await this.storageService.getMatches();
+        let results = await storageService.getMatches();
         results.push({
           id: uuidv4(),
           active: true,
@@ -40,7 +41,7 @@
           regex: false,
           case_insensitive: false
         });
-        this.storageService.setMatches(results);
+        await storageService.setMatches(results);
         
         this.fab = false;
       }

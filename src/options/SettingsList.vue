@@ -49,13 +49,13 @@
           `Style: ${ style.name }`
         ].join(', ');
       },
-      getStyles() {
-        storageService.getStyles().then(styles => {
+      getStyles(forceUpdate) {
+        storageService.getStyles(forceUpdate).then(styles => {
           this.styles = styles;
         });
       },
-      getMatches() {
-        storageService.getMatches().then(matches => {
+      getMatches(forceUpdate) {
+        storageService.getMatches(forceUpdate).then(matches => {
           this.matches = matches;
         });
       },
@@ -63,8 +63,16 @@
         storageService.setStyles(this.styles);
       },
       setMatches() {
-        storage.StorageService.setMatches(this.matches);
-      }
+        storageService.setMatches(this.matches);
+      },
+      removeStyle(styleToRemove) {
+        this.styles = this.styles.filter(style => style.id !== styleToRemove.id);
+        this.setStyles();
+      },
+      removeMatch(matchToRemove) {
+        this.matches = this.matches.filter(match => match.id !== matchToRemove.id);
+        this.setMatches();
+      },
     },
     data: () => ({
       fab: false,
@@ -86,8 +94,8 @@
         >
           <h1>Styles</h1>
           <v-expansion-panel 
-            v-for="(style, index) in styles"
-            :key="index"
+            v-for="style in styles"
+            :key="style.id"
             >
             <v-expansion-panel-header>
               <div>
@@ -100,6 +108,7 @@
               <style-panel 
                 :style-definition="style"
                 @set-style="setStyles()" 
+                @remove-style="removeStyle($event)"
                 class="pt-4"></style-panel>
             </v-expansion-panel-content>
           </v-expansion-panel>
@@ -111,10 +120,10 @@
         <v-expansion-panels
           :hover="true"
         >
-          <h1>Matches</h1>
+          <h2>Matches</h2>
           <v-expansion-panel 
-            v-for="(match, index) in matches"
-            :key="index"
+            v-for="match in matches"
+            :key="match.id"
             >
             <v-expansion-panel-header>
               <v-input
@@ -128,6 +137,7 @@
                 :styles="styles"
                 :match-definition="match" 
                 @set-match="setMatches()"
+                @remove-match="removeMatch($event)"
                 class="pt-4"
               ></match-panel>
             </v-expansion-panel-content>

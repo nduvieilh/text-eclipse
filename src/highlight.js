@@ -2,12 +2,21 @@ import StorageService from './StorageService';
 import Settings from './Settings.json';
 import { createRegExMatch } from './MatchService';
 
-document.addEventListener('storage-initialized', async function (e) {
-  console.log(e.detail);
-  await highlightWords();
-});
+// document.addEventListener('storage-initialized', async function (e) {
+//   console.log(e.detail);
+//   await highlightWords();
+// });
 
 let storage = new StorageService();
+
+function init() {
+  Promise.all([storage.getStyles(), storage.getMatches()]).then(results => {
+    highlightWords();
+  });
+}
+
+
+init();
 
 async function highlightWords() {
   let matches = await storage.getActiveMatches();
@@ -76,7 +85,7 @@ async function eclipseAll(list) {
 }
 
 async function eclipse(matchObj, match) {
-  const style = await storage.getStyleByName(match.style);
+  const style = await storage.getStyleById(match.style);
   const {
     element,
     matchString
@@ -86,7 +95,7 @@ async function eclipse(matchObj, match) {
   const tempDom = document.createElement('div');
   const matchRE = new RegExp(matchString, 'gi');
 
-  tempDom.innerHTML = text.replace(matchRE, `<span style="${style.css}">${matchString}</span>`)
+  tempDom.innerHTML = text.replace(matchRE, `<span style="${style.css} font-weight: bold;">$&</span>`);
 
   switch (element.nodeType) {
     case 1:
