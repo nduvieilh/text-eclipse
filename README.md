@@ -25,10 +25,10 @@ On page load the extension will check the chrome `tabs` API for permission to ac
 - [x] Dynamic access to active page DOM tree
 - [x] Efficiently searching for matches (`Document.createTreeWalker()`)
 - [x] `chrome.storage.sync` API to keep your search terms
-- [ ] Basic options page to add/remove styles and matches
+- [x] Basic options page to add/remove styles and matches
 - [ ] Extracting search terms from previous google search
 - [ ] Expand settings page to allow modification
-- [ ] RegEx search support
+- [x] RegEx search support
 - [ ] Multiple terms in one `TextNode`
 - [ ] `<span>` clean up
 - [ ] Unit testing
