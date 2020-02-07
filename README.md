@@ -1,4 +1,4 @@
-# Word Eclipse #
+# Text Eclipse #
 
 ![moon](https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/microsoft/209/waning-crescent-moon-symbol_1f318.png)
 
