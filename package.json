@@ -1,11 +1,11 @@
 {
-  "name": "word-eclipse",
+  "name": "text-eclipse",
   "version": "0.0.1",
   "description": "description here",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nduvieilh/word-eclipse.git"
+    "url": "https://github.com/nduvieilh/text-eclipse.git"
   },
   "author": "Nicky Duvieilh, Subin Siwal, Dmitriy Yudin",
   "license": "ISC",

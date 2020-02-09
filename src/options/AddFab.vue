@@ -65,24 +65,22 @@
         color="accent"
         fab
       >
-        Options
+        <v-icon>mdi-plus</v-icon>
       </v-btn>
     </template>
     <v-btn
       fab
       small
-      color="green"
       @click="addStyle()"
     >
-      Add Style
+      <v-icon>mdi-format-paint</v-icon>
     </v-btn>
     <v-btn
       fab
       small
-      color="green"
       @click="addMatch()"
     >
-      Add Matches
+      <v-icon>mdi-magnify</v-icon>
     </v-btn>
   </v-speed-dial>
 </template>

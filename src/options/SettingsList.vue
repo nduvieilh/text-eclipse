@@ -92,7 +92,13 @@
         <v-expansion-panels
           :hover="true"
         >
-          <h1>Styles</h1>
+           <v-input
+            class="mb-3"
+            prepend-icon="mdi-format-paint"
+            :messages="['Styles to apply to matched words']"
+          >
+            Styles
+          </v-input>
           <v-expansion-panel 
             v-for="style in styles"
             :key="style.id"
@@ -120,7 +126,13 @@
         <v-expansion-panels
           :hover="true"
         >
-          <h2>Matches</h2>
+          <v-input
+            class="mb-3"
+            prepend-icon="mdi-magnify"
+            :messages="['Words to search for within the page']"
+          >
+            Matches
+          </v-input>
           <v-expansion-panel 
             v-for="match in matches"
             :key="match.id"

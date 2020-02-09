@@ -2,11 +2,6 @@ import StorageService from './StorageService';
 import Settings from './Settings.json';
 import { createRegExMatch } from './MatchService';
 
-// document.addEventListener('storage-initialized', async function (e) {
-//   console.log(e.detail);
-//   await highlightWords();
-// });
-
 let storage = new StorageService();
 
 function init() {
@@ -95,7 +90,7 @@ async function eclipse(matchObj, match) {
   const tempDom = document.createElement('div');
   const matchRE = new RegExp(matchString, 'gi');
 
-  tempDom.innerHTML = text.replace(matchRE, `<span style="${style.css} font-weight: bold;">$&</span>`);
+  tempDom.innerHTML = text.replace(matchRE, `<span style="${style.css}">$&</span>`);
 
   switch (element.nodeType) {
     case 1:
