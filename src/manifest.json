@@ -1,7 +1,7 @@
 {
   "name": "Text Eclipse",
-  "description": "",
-  "version": "0.1",
+  "description": "Apply custom styling to multiple sets of word matches across every page.",
+  "version": "0.0.1",
   "manifest_version": 2,
   "options_page": "options.html",
   "background": {

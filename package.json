@@ -1,7 +1,7 @@
 {
   "name": "text-eclipse",
   "version": "0.0.1",
-  "description": "description here",
+  "description": "A chrome extension for highlighting multiple sets of words on a page.",
   "main": "index.js",
   "repository": {
     "type": "git",
