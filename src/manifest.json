@@ -33,7 +33,6 @@
   },
   "permissions": [
     "storage",
-    "history",
     "tabs",
     "http://*/*", 
     "https://*/*"
