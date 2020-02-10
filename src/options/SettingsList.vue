@@ -63,7 +63,6 @@
       },
       setStyles() {
         storageService.setStyles(this.styles);
-        //this.appendStylesToPage();
       },
       setMatches() {
         storageService.setMatches(this.matches);
