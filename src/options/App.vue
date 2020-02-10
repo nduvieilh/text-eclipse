@@ -34,6 +34,8 @@ export default {
     <v-app-bar
       app
       color="primary"
+      dark
+      fixed
       elevate-on-scroll
       scroll-target="#page"
     >

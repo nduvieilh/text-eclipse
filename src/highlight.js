@@ -67,7 +67,6 @@ function scanDocument(matchesStrings) {
   }
 
 
-  console.log('list', list.entries());
 
   return list;
 }
@@ -105,6 +104,13 @@ async function eclipse(matchObj, match) {
       element.replaceWith(...tempDom.childNodes);
       break;
   }
+}
+
+function cleanUp() {
+  let elements = document.querySelectorAll('.text-eclipse');
+  elements.forEach(element => {
+    element.replaceWith(element.innerText);
+  });
 }
 
 

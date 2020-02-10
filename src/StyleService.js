@@ -43,7 +43,6 @@ class StyleService {
       
         styleTag.innerHTML = innerHTML;
       
-        console.log(styleTag);
         document.querySelector('head').appendChild(styleTag);
       }
       

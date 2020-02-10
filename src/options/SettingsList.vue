@@ -1,5 +1,6 @@
 <script>
   import StorageService from "../StorageService";
+  import StyleService from "../StyleService";
   import StylePanel from './StylePanel';
   import MatchPanel from './MatchPanel';
   import { 
@@ -52,6 +53,7 @@
       getStyles(forceUpdate) {
         storageService.getStyles(forceUpdate).then(styles => {
           this.styles = styles;
+          this.appendStylesToPage();
         });
       },
       getMatches(forceUpdate) {
@@ -61,6 +63,7 @@
       },
       setStyles() {
         storageService.setStyles(this.styles);
+        //this.appendStylesToPage();
       },
       setMatches() {
         storageService.setMatches(this.matches);
@@ -73,6 +76,9 @@
         this.matches = this.matches.filter(match => match.id !== matchToRemove.id);
         this.setMatches();
       },
+      appendStylesToPage() {
+        StyleService.addStyles(document, this.styles);   
+      }
     },
     data: () => ({
       fab: false,
@@ -105,7 +111,7 @@
             >
             <v-expansion-panel-header>
               <div>
-                <span :style="style.css">
+                <span :class="`text-eclipse style-${style.id}`">
                   {{style.name}}
                 </span>
               </div>

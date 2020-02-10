@@ -1,13 +1,7 @@
-export function createRegExMatch(matchObj, matchString) {
-  console.log(matchObj, matchString);
-}
-
-
 import uuidv4 from 'uuid/v4';
 
 class MatchService {
   static createRegExMatch(matchObj, matchString) {
-    console.log(matchObj, matchString);
   }
   
   static createMatch() {
