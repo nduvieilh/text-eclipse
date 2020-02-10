@@ -6,6 +6,11 @@
     VTextarea,
     VTextField,
     VBtn,
+    VTabs,
+    VTab,
+    VTabItem,
+    VTabsSlider,
+    VIcon,
   } from 'vuetify/lib';
   export default {
     name: 'StylePanel',
@@ -15,6 +20,11 @@
       VTextarea,
       VTextField,
       VBtn,
+      VTabs,
+      VTab,
+      VTabItem,
+      VTabsSlider,
+      VIcon,
     },
     props: {
       styleDefinition: {
@@ -22,6 +32,11 @@
         required: true,
         default: () => {}
       },
+    },
+    data() {
+      return {
+        tab: null
+      }
     },
     methods: {
       update: _.debounce(function() {
@@ -36,40 +51,75 @@
 
 <template>
   <div>
-    <v-row>
-      <v-col>
-        <v-text-field
-          v-model="styleDefinition.name"
-          @input="update()"
-          label="Name"
-          filled
-          color="accent"
-        >
-        </v-text-field>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
+    <v-text-field
+      v-model="styleDefinition.name"
+      @input="update()"
+      label="Name"
+      filled
+      color="accent"
+    >
+    </v-text-field>
+    <v-tabs
+      class="mb-3"
+      fixed-tabs
+    >
+      <v-tabs-slider></v-tabs-slider>
+
+      <v-tab>class</v-tab>
+      <v-tab>:hover</v-tab>
+      <v-tab>:before</v-tab>
+      <v-tab>:after</v-tab>
+
+      <v-tab-item>
         <v-textarea
-          v-model="styleDefinition.css"
+          v-model="styleDefinition.selectors.class"
           @input="update()"
-          label="CSS Class"
+          label="class"
           auto-grow
           filled
           color="accent"
           >
         </v-textarea>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <v-btn
-          text
-          color="red"
-          @click="remove()"
-        >Delete</v-btn>
-      </v-col>
-    </v-row>
+      </v-tab-item>
+      <v-tab-item>
+        <v-textarea
+          v-model="styleDefinition.selectors.hover"
+          @input="update()"
+          label=":hover"
+          auto-grow
+          filled
+          color="accent"
+          >
+        </v-textarea>
+      </v-tab-item>
+      <v-tab-item>
+        <v-textarea
+          v-model="styleDefinition.selectors.before"
+          @input="update()"
+          label=":before"
+          auto-grow
+          filled
+          color="accent"
+          >
+        </v-textarea>
+      </v-tab-item>
+      <v-tab-item>
+        <v-textarea
+          v-model="styleDefinition.selectors.after"
+          @input="update()"
+          label=":after"
+          auto-grow
+          filled
+          color="accent"
+          >
+        </v-textarea>
+      </v-tab-item>
+    </v-tabs>
+    <v-btn
+      text
+      color="red"
+      @click="remove()"
+    >Delete</v-btn>
   </div>
 </template>
 

@@ -1,4 +1,5 @@
 import StorageService from './StorageService';
+import StyleService from './StyleService';
 import Settings from './Settings.json';
 import { createRegExMatch } from './MatchService';
 
@@ -6,7 +7,11 @@ let storage = new StorageService();
 
 function init() {
   Promise.all([storage.getStyles(), storage.getMatches()]).then(results => {
-    highlightWords();
+    if(results[0].length > 0 && results[0].length > 0) {
+      highlightWords();
+
+      StyleService.addStyles(document, results[0]);
+    }
   });
 }
 
@@ -90,7 +95,7 @@ async function eclipse(matchObj, match) {
   const tempDom = document.createElement('div');
   const matchRE = new RegExp(matchString, 'gi');
 
-  tempDom.innerHTML = text.replace(matchRE, `<span style="${style.css}">$&</span>`);
+  tempDom.innerHTML = text.replace(matchRE, `<span class="text-eclipse match-${match.id} style-${style.id}">$&</span>`);
 
   switch (element.nodeType) {
     case 1:

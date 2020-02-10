@@ -1,6 +1,7 @@
 <script>
   import StorageService from '../StorageService';
-  import uuidv4 from 'uuid/v4';
+  import MatchService from '../MatchService';
+  import StyleService from '../StyleService';
   import { 
     VBtn,
     VSpeedDial,
@@ -22,25 +23,14 @@
     methods: {
       addStyle: async function() {
         let results = await storageService.getStyles();
-        results.push({
-          id: uuidv4(),
-          name: '',
-          css: '',
-        });
+        results.push(StyleService.createStyle());
         await storageService.setStyles(results);
         
         this.fab = false;
       },
       addMatch: async function() {
         let results = await storageService.getMatches();
-        results.push({
-          id: uuidv4(),
-          active: true,
-          style: "",
-          strings: [],
-          regex: false,
-          case_insensitive: false
-        });
+        results.push(MatchService.createMatch());
         await storageService.setMatches(results);
         
         this.fab = false;
@@ -71,16 +61,16 @@
     <v-btn
       fab
       small
-      @click="addStyle()"
+      @click="addMatch()"
     >
-      <v-icon>mdi-format-paint</v-icon>
+      <v-icon>mdi-magnify</v-icon>
     </v-btn>
     <v-btn
       fab
       small
-      @click="addMatch()"
+      @click="addStyle()"
     >
-      <v-icon>mdi-magnify</v-icon>
+      <v-icon>mdi-format-paint</v-icon>
     </v-btn>
   </v-speed-dial>
 </template>
