@@ -3,6 +3,7 @@ import '@mdi/font/css/materialdesignicons.css';
 import StorageService from '../StorageService';
 import AddFab from './AddFab';
 import SettingsList from './SettingsList';
+import ImportExportService from '../ImportExportService';
 import { 
   VApp,
   VAppBar,
@@ -11,6 +12,12 @@ import {
   VSheet,
   VContainer,
   VContent,
+  VMenu,
+  VIcon,
+  VBtn,
+  VList,
+  VListItem,
+  VListItemTitle,
 } from 'vuetify/lib';
 
 export default {
@@ -23,8 +30,18 @@ export default {
     VSheet,
     VContainer,
     VContent,
+    VMenu,
+    VIcon,
+    VBtn,
+    VList,
+    VListItem,
+    VListItemTitle,
     AddFab,
     SettingsList,
+  },
+  methods: {
+    importJSON: ImportExportService.importJSON,
+    exportJSON: ImportExportService.exportJSON,
   },
 };
 </script>
@@ -41,6 +58,26 @@ export default {
     >
       <v-toolbar-title>Word Eclipse</v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-menu bottom left>
+        <template v-slot:activator="{ on }">
+          <v-btn
+            dark
+            icon
+            v-on="on"
+          >
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
+        </template>
+
+        <v-list>
+          <v-list-item @click="importJSON">
+            <v-list-item-title>Import</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="exportJSON">
+            <v-list-item-title>Export</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </v-app-bar>
     <v-content
       class="fill-height"
