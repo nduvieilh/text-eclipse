@@ -1,4 +1,9 @@
-/node_modules
-/*.log
-/dist
-/dist-zip
+node_modules
+*.log
+dist
+dist-zip
+.cache
+.DS_Store
+src/.temp
+.env
+.env.*
