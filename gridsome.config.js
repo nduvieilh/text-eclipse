@@ -7,6 +7,25 @@
 module.exports = {
   siteName: 'Text Eclipse',
   icon: '~/icons/icon_256.png',
-  siteUrl: 'http://texteclipse.com',
-  plugins: []
+  siteUrl: 'https://texteclipse.com',
+  plugins: [
+    {
+      use: '@gridsome/source-filesystem',
+      options: {
+        path: 'content/posts/**/*.md',
+        typeName: 'Post',
+        route: '/:slug',
+        remark: {
+          plugins: [
+            ['@gridsome/remark-prismjs', {transformInlineCode: true}]
+          ]
+        }
+      }
+    }
+  ],
+  transformers: {
+    remark: {
+
+    }
+  }
 }

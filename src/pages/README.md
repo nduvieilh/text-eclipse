@@ -1,3 +1,10 @@
+---
+title: readme
+date: 2020-04-05 21:04:00
+description: "readme stuff"
+slug: readme
+---
+
 Pages are usually used for normal pages or for listing items from a GraphQL collection.
 Add .vue files here to create pages. For example **About.vue** will be **site.com/about**.
 Learn more about pages: https://gridsome.org/docs/pages/

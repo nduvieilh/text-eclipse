@@ -1,16 +1,53 @@
 <template>
-  <div class="layout">
-    <header class="header">
-      <strong>
-        <g-link to="/">{{ $static.metadata.siteName }}</g-link>
-      </strong>
-      <nav class="nav">
-        <g-link class="nav__link" to="/">Home</g-link>
-        <g-link class="nav__link" to="/about/">About</g-link>
-      </nav>
-    </header>
-    <slot/>
-  </div>
+  <v-app id="sandbox">
+    <v-navigation-drawer
+      v-model="drawer"
+      clipped
+      app
+      overflow
+      floating
+    >
+      <main-menu />
+    </v-navigation-drawer>
+
+    <v-app-bar
+      :clipped-left="$vuetify.breakpoint.lgAndUp"
+      app
+      color="primary"
+      dark
+      flat
+      extended
+      src="/images/background.jpg"
+    >
+      <template v-slot:img="{ props }">
+        <v-img
+          v-bind="props"
+          gradient="to top right, rgba(55,236,186,.7), rgba(25,32,72,.7)"
+        ></v-img>
+      </template>
+      <v-app-bar-nav-icon  @click.stop="drawer = !drawer" />
+      <v-toolbar-title>{{ $static.metadata.siteName }}</v-toolbar-title>
+      <v-spacer />
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on }">
+          <v-btn 
+            v-on="on"
+            icon
+            href="https://github.com/nduvieilh/text-eclipse"
+          >
+            <v-icon>mdi-github</v-icon>
+          </v-btn>
+        </template>
+        <span>GitHub</span>
+      </v-tooltip>
+    </v-app-bar>
+
+    <v-content>
+      <v-container fluid>
+        <slot/>
+      </v-container>
+    </v-content>
+  </v-app>
 </template>
 
 <static-query>
@@ -21,30 +58,15 @@ query {
 }
 </static-query>
 
-<style>
-body {
-  font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-  margin:0;
-  padding:0;
-  line-height: 1.5;
-}
+<script>
+import MainMenu from '../components/MainMenu';
 
-.layout {
-  max-width: 760px;
-  margin: 0 auto;
-  padding-left: 20px;
-  padding-right: 20px;
+export default {
+  components: {
+    'main-menu': MainMenu,
+  },
+  data: () => ({
+    drawer: true, 
+  }),
 }
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  height: 80px;
-}
-
-.nav__link {
-  margin-left: 20px;
-}
-</style>
+</script>
