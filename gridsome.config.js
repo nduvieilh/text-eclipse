@@ -27,5 +27,8 @@ module.exports = {
     remark: {
 
     }
+  },
+  configureWebpack(config) {
+    console.log(config);
   }
 }

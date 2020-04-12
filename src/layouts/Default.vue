@@ -28,7 +28,7 @@
       <v-app-bar-nav-icon  @click.stop="drawer = !drawer" />
       <v-toolbar-title>{{ $static.metadata.siteName }}</v-toolbar-title>
       <v-spacer />
-      <v-tooltip bottom>
+      <v-tooltip left>
         <template v-slot:activator="{ on }">
           <v-btn 
             v-on="on"
@@ -66,7 +66,12 @@ export default {
     'main-menu': MainMenu,
   },
   data: () => ({
-    drawer: true, 
+    drawer: false, 
   }),
+  mounted() {
+    if(this.$vuetify.breakpoint.lgAndUp) {
+      this.drawer = true;
+    }
+  },
 }
 </script>

@@ -3,10 +3,12 @@
 import Vuetify from './vuetify';
 import DefaultLayout from '~/layouts/Default';
 import ContainerCard from '~/components/ContainerCard';
+import VueMarkdown from 'vue-markdown';
 
 export default function (Vue, { router, head, isClient, appOptions }) {
   appOptions.vuetify = Vuetify;
   // Set default layout as a global component
   Vue.component('Layout', DefaultLayout);
   Vue.component('ContainerCard', ContainerCard);
+  Vue.component('VueMarkdown', VueMarkdown);
 }
