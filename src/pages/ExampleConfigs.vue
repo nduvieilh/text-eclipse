@@ -1,8 +1,8 @@
 <template>
   <Layout>
-
-    stuff here
-
+    <container-page>
+      Coming soon
+    </container-page>
   </Layout>
 </template>
 
