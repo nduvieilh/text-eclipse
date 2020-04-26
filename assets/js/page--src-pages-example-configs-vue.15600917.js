@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[4],{172:function(n,t,e){"use strict";e.r(t);var o={metaInfo:{title:"Example Configs"}},a=e(12),i=Object(a.a)(o,(function(){var n=this.$createElement,t=this._self._c||n;return t("Layout",[t("container-page",[this._v("\n    Coming soon\n  ")])],1)}),[],!1,null,null,null);t.default=i.exports}}]);
